@@ -111,4 +111,62 @@ public class HastaIslemleri {
 		}
 	}
 	
+	public void hastaEkle(String ad, String soyad, String tc, String refakatci) {
+		
+		String sorgu = "INSERT INTO Patients (ad,soyad,tc,refakatci) VALUES (?,?,?,?)";
+		
+		try {
+			
+			preparedStatement = con.prepareStatement(sorgu);
+			preparedStatement.setString(1, ad);
+			preparedStatement.setString(2, soyad);
+			preparedStatement.setString(3, tc);
+			preparedStatement.setString(4, refakatci);
+			
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
+	public void hastaGuncelle(int id, String yeni_ad, String yeni_soyad, String yeni_tc, String yeni_refakatci) {
+		
+		String sorgu = "UPDATE Patients set ad = ?, soyad = ?, tc = ?, refakatci = ? where id = ?";
+		
+		try {
+			
+			preparedStatement = con.prepareStatement(sorgu);
+			
+			preparedStatement.setString(1, yeni_ad);
+			preparedStatement.setString(2, yeni_soyad);
+			preparedStatement.setString(3, yeni_tc);
+			preparedStatement.setString(4, yeni_refakatci);
+			preparedStatement.setInt(5, id);
+			
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void hastaSil(int id) {
+		
+		String sorgu = "DELETE from Patients where id = ?";
+		
+		try {
+			
+			preparedStatement = con.prepareStatement(sorgu);
+			
+			preparedStatement.setInt(1, id);
+			
+			preparedStatement.executeUpdate();
+		}
+		catch(SQLException e) {
+			
+			e.printStackTrace();
+		}
+	}
+	
 }
